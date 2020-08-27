@@ -1,0 +1,29 @@
+{
+  "name": "tecspense-api",
+  "version": "1.0.0",
+  "description": "Project to build graphql app connecting with postresql as a database",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js --ext js --exec babel-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SebasttianVelez/tecspense-api.git"
+  },
+  "author": "Sebastián Vélez Montoya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SebasttianVelez/tecspense-api/issues"
+  },
+  "homepage": "https://github.com/SebasttianVelez/tecspense-api#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.0",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "apollo-server": "^2.16.1",
+    "graphql": "^15.3.0"
+  }
+}
