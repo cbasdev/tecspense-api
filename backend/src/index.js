@@ -1,38 +1,46 @@
 import { ApolloServer, makeExecutableSchema } from 'apollo-server'
 
-// Type definitions
-const typeDefs = `
-  type Hello {
-    message: String!
-  }
+import { pool } from '../controllers/index.controllers'
 
-  type Query {
-    sayHello(name: String!): Hello
-  }
-`
-//Resolvers
-const resolvers = {
-  Query: {
-    sayHello: (_, args) => {
-      return {
-        message: `Hello ${args.name || 'world'}`,
-      }
-    },
-  },
+const getUsers = async () => {
+  const res = await pool.query('select * from users')
+  console.log(res.rows)
 }
 
-//Schema
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-})
+getUsers()
+// // Type definitions
+// const typeDefs = `
+//   type Hello {
+//     message: String!
+//   }
 
-//Create apollo server
-const apolloServer = new ApolloServer({
-  schema,
-})
+//   type Query {
+//     sayHello(name: String!): Hello
+//   }
+// `
+// //Resolvers
+// const resolvers = {
+//   Query: {
+//     sayHello: (_, args) => {
+//       return {
+//         message: `Hello ${args.name || 'world'}`,
+//       }
+//     },
+//   },
+// }
 
-//Running Apollo Server
-apolloServer.listen(5000).then(({ url }) => {
-  console.log(`Running on port ${url}`)
-})
+// //Schema
+// const schema = makeExecutableSchema({
+//   typeDefs,
+//   resolvers,
+// })
+
+// //Create apollo server
+// const apolloServer = new ApolloServer({
+//   schema,
+// })
+
+// //Running Apollo Server
+// apolloServer.listen(5000).then(({ url }) => {
+//   console.log(`Running on port ${url}`)
+// })

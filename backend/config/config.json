@@ -1,0 +1,13 @@
+{
+  "serverPort": 5000,
+  "db": {
+    "host": "localhost",
+    "user": "postgres",
+    "password": "0609",
+    "database": "tecspense"
+  },
+  "security": {
+    "secretKey": "some-secret-key",
+    "expiresIn": "7d"
+  }
+}
