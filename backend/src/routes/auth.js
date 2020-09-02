@@ -1,25 +1,48 @@
 import { Router } from 'express'
 import jwt from 'jsonwebtoken'
-import app from '../app/app'
 import { encryptPassword } from '../utils/authentication'
 import { User } from '../models/User'
+import { environment } from '../../env/environment'
 const router = Router()
-
-router.get('/', (req, res) => {
-  res.json({
-    message: 'hola',
-  })
-})
 
 router.post('/register', async (req, res) => {
   const { name_user, email, password } = req.body
-  console.log(req.body)
   const passwordEncrypted = await encryptPassword(password)
   const newUser = new User(name_user, email, passwordEncrypted)
-  const users = await newUser.saveUser()
-  // console.log(users)
+
+  // Saving user in database
+  const user = await newUser.saveUser()
+
+  if (!user.error) {
+    const token = jwt.sign({ user }, environment.secret_word, {
+      expiresIn: 60 * 60 * 24,
+    })
+    res.json({ auth: true, token })
+  } else {
+    res.json({ auth: false, message: 'error creating user' })
+  }
+})
+
+router.get('/me', async (req, res, next) => {
+  const token = req.headers['x-access-token']
+
+  if (!token) {
+    return res.status(401).json({
+      auth: false,
+      message: 'No token provided',
+    })
+  } else {
+    const decoded = jwt.verify(token, environment.secret_word)
+    const userDecoded = new User(
+      decoded.user.name_user,
+      decoded.user.email,
+      decoded.user.password
+    )
+    const user = await userDecoded.findByEmail()
+    console.log(user)
+  }
   res.json({
-    text: 'registro',
+    message: 'hola me',
   })
 })
 
