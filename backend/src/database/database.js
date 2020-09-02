@@ -1,6 +1,6 @@
 import { Pool } from 'pg'
 
-import config from '../config/config.json'
+import config from '../config/default.json'
 
 const $db = config.db
 
