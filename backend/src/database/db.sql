@@ -78,3 +78,9 @@ add foreign key (id_user) references (id_user)
 alter table investments
 add foreign key (id_user) references (id_user)
 
+-- Inserts
+
+insert into users (name_user, email, password) values ('sebastian', 'sebas@gmail.com', '123123');
+insert into users (name_user, email, password) values ('walter white', 'walter@gmail.com', '123123');
+insert into users (name_user, email, password) values ('richard feyman', 'richard@gmail.com', '123123');
+insert into users (name_user, email, password) values ('stephen hawking', 'stephen@gmail.com', '123123');
