@@ -39,11 +39,8 @@ router.get('/me', async (req, res, next) => {
       decoded.user.password
     )
     const user = await userDecoded.findByEmail()
-    console.log(user)
+    res.json(user[0])
   }
-  res.json({
-    message: 'hola me',
-  })
 })
 
 router.post('/login', (req, res) => {

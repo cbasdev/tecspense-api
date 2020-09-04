@@ -11,7 +11,8 @@ export class User {
   async saveUser() {
     try {
       const res = await pool.query(
-        `insert into users (name_user, email, password) values (
+        `
+        insert into users (name_user, email, password) values (
           '${this.name_user}',
           '${this.email}',
           '${this.password}'
@@ -29,7 +30,13 @@ export class User {
   async findByEmail() {
     try {
       const user = await pool.query(
-        `select id_user, name_user, email from users where email = '${this.email}' `
+        `
+        select 
+          id_user, name_user, email 
+          from users 
+          where email = '${this.email}'
+          fetch first row only
+        `
       )
       return user.rows
     } catch (error) {
